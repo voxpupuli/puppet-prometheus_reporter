@@ -51,38 +51,38 @@ node_exporter --collector.textfile.directory /var/lib/prometheus-dropzone
 ### Sample
 
 ```
-puppet_report_resources{name="Changed",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Failed",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Failed to restart",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Out of sync",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Restarted",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Scheduled",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Skipped",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_resources{name="Total",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 519
-puppet_report_time{name="Acl",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 4.305946465999999
-puppet_report_time{name="Anchor",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.002099278
-puppet_report_time{name="Augeas",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 10.624435211000002
-puppet_report_time{name="Concat file",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.003198308
-puppet_report_time{name="Concat fragment",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.011727518000000003
-puppet_report_time{name="Config retrieval",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 21.957285313
-puppet_report_time{name="Cron",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.000998661
-puppet_report_time{name="Exec",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.3956716509999998
-puppet_report_time{name="File",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.27236491600000007
-puppet_report_time{name="File line",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.0013426360000000001
-puppet_report_time{name="Filebucket",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.000321591
-puppet_report_time{name="Grafana datasource",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.185209661
-puppet_report_time{name="Group",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.002729905
-puppet_report_time{name="Mysql datadir",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.000549758
-puppet_report_time{name="Package",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 1.6033163289999999
-puppet_report_time{name="Service",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.9613265080000001
-puppet_report_time{name="Total",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 40.333134474999994
-puppet_report_time{name="User",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.0037832459999999997
-puppet_report_time{name="Yumrepo",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0.0008275190000000001
-puppet_report_changes{name="Total",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_events{name="Failure",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_events{name="Success",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report_events{name="Total",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 0
-puppet_report{host="node.example.com",kind="apply",version="9.2-329 (Built on Wed Oct 19 16:15:32 CEST 2016)",transaction_uuid="4f85dbb4-d575-4386-83e4-e71576df71e1",host="node.example.com"} 1477040517280
+puppet_report_resources{name="Changed",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Failed",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Failed to restart",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Out of sync",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Restarted",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Scheduled",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Skipped",environment="production",host="node.example.com"} 0
+puppet_report_resources{name="Total",environment="production",host="node.example.com"} 519
+puppet_report_time{name="Acl",environment="production",host="node.example.com"} 3.8629975709999984
+puppet_report_time{name="Anchor",environment="production",host="node.example.com"} 0.002442332
+puppet_report_time{name="Augeas",environment="production",host="node.example.com"} 10.629003954
+puppet_report_time{name="Concat file",environment="production",host="node.example.com"} 0.0026740609999999997
+puppet_report_time{name="Concat fragment",environment="production",host="node.example.com"} 0.012010700000000003
+puppet_report_time{name="Config retrieval",environment="production",host="node.example.com"} 20.471957786
+puppet_report_time{name="Cron",environment="production",host="node.example.com"} 0.000874118
+puppet_report_time{name="Exec",environment="production",host="node.example.com"} 0.4114313850000001
+puppet_report_time{name="File",environment="production",host="node.example.com"} 0.32955574000000015
+puppet_report_time{name="File line",environment="production",host="node.example.com"} 0.002702939
+puppet_report_time{name="Filebucket",environment="production",host="node.example.com"} 0.0003994
+puppet_report_time{name="Grafana datasource",environment="production",host="node.example.com"} 0.187452552
+puppet_report_time{name="Group",environment="production",host="node.example.com"} 0.0031514940000000003
+puppet_report_time{name="Mysql datadir",environment="production",host="node.example.com"} 0.000422795
+puppet_report_time{name="Package",environment="production",host="node.example.com"} 1.670733222
+puppet_report_time{name="Service",environment="production",host="node.example.com"} 0.8740041969999999
+puppet_report_time{name="Total",environment="production",host="node.example.com"} 38.468031933999995
+puppet_report_time{name="User",environment="production",host="node.example.com"} 0.005163427
+puppet_report_time{name="Yumrepo",environment="production",host="node.example.com"} 0.0010542610000000001
+puppet_report_changes{name="Total",environment="production",host="node.example.com"} 0
+puppet_report_events{name="Failure",environment="production",host="node.example.com"} 0
+puppet_report_events{name="Success",environment="production",host="node.example.com"} 0
+puppet_report_events{name="Total",environment="production",host="node.example.com"} 0
+puppet_report{environment="production",host="node.example.com"} 1477054915347
 ```
 
 ## Contributors
