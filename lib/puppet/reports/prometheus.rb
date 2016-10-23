@@ -29,33 +29,53 @@ Puppet::Reports.register_report(:prometheus) do
   end
 
   def process
-    now = DateTime.now.new_offset(0)
-
     if REPORT_FILENAME.nil?
-      name = host + '.prom'
-      file = File.join(TEXTFILE_DIRECTORY, name)
+      namevar = self.host
     else
-      file = File.join(TEXTFILE_DIRECTORY, REPORT_FILENAME)
+      namevar = REPORT_FILENAME
     end
 
+    yaml_filename = File.join(TEXTFILE_DIRECTORY, '.' + namevar + '.yaml')
+    filename = File.join(TEXTFILE_DIRECTORY, namevar + '.prom')
+
     common_values = {
-      transaction_uuid: self.transaction_uuid,
+      environment: self.environment,
       host: self.host,
-    }.reduce('') {
-        |values, extra| values + ",#{extra[0].to_s}=\"#{extra[1].to_s}\""
+    }.reduce([]) {
+      |values, extra| values + Array("#{extra[0].to_s}=\"#{extra[1].to_s}\"")
     }
 
-    epochtime = now.strftime('%Q')
-    File.open(file, 'w') do |file|
-      unless metrics.empty? or metrics['events'].nil?
-        metrics.each do |metric, data|
-          data.values.each do |val|
-            file.write("puppet_report_#{metric}{name=\"#{val[1]}\"#{common_values}} #{val[2]}\n")
+    new_metrics = Hash.new
+    unless metrics.empty? or metrics['events'].nil?
+      metrics.each do |metric, data|
+        data.values.each do |val|
+          new_metrics["puppet_report_#{metric}{name=\"#{val[1]}\",#{common_values.join(',')}}"] = val[2]
+        end
+      end
+    end
+
+    epochtime = DateTime.now.new_offset(0).strftime('%Q')
+    new_metrics["puppet_report{#{common_values.join(',')}}"] = epochtime
+
+    File.open(filename, 'w') do |file|
+      if File.exist?(yaml_filename)
+        file.write("# Old metrics\n")
+        existing_metrics = YAML.load_file(yaml_filename)
+        existing_metrics.each do |k, _v|
+          unless new_metrics.include?(k)
+            file.write("#{k} -1\n")
           end
         end
       end
 
-      file.write("puppet_report{host=\"#{host}\",kind=\"#{kind}\",version=\"#{configuration_version}\"#{common_values}} #{epochtime}\n")
+      file.write("# New metrics\n")
+      new_metrics.each do |k, v|
+        file.write("#{k} #{v}\n")
+      end
+    end
+
+    File.open(yaml_filename, 'w') do |yaml_file|
+      yaml_file.write new_metrics.to_yaml
     end
   end
 end
