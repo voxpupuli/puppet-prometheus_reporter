@@ -41,11 +41,11 @@ reports = puppetdb,prometheus
 
 ### Prometheus
 
-Call the Prometheus node_exporter with the `--collector.textfile.directory`
+Call the Prometheus node_exporter with the `-collector.textfile.directory`
 flag:
 
 ```
-node_exporter --collector.textfile.directory /var/lib/prometheus-dropzone
+node_exporter -collector.textfile.directory=/var/lib/prometheus-dropzone
 ```
 
 ### Sample
