@@ -24,29 +24,29 @@ Puppet::Reports.register_report(:prometheus) do
     raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set.")
   end
 
-  unless REPORT_FILENAME.nil? or REPORT_FILENAME.end_with? '.prom'
+  unless REPORT_FILENAME.nil? || REPORT_FILENAME.end_with?('.prom')
     raise(Puppet::ParseError, "#{configfile}: report_filename does not ends with .prom")
   end
 
   def process
-    if REPORT_FILENAME.nil?
-      namevar = self.host
-    else
-      namevar = REPORT_FILENAME
-    end
+    namevar = if REPORT_FILENAME.nil?
+                host
+              else
+                REPORT_FILENAME
+              end
 
     yaml_filename = File.join(TEXTFILE_DIRECTORY, '.' + namevar + '.yaml')
     filename = File.join(TEXTFILE_DIRECTORY, namevar + '.prom')
 
     common_values = {
-      environment: self.environment,
-      host: self.host,
-    }.reduce([]) {
-      |values, extra| values + Array("#{extra[0].to_s}=\"#{extra[1].to_s}\"")
-    }
+      environment: environment,
+      host: host
+    }.reduce([]) do |values, extra|
+      values + Array("#{extra[0]}=\"#{extra[1]}\"")
+    end
 
-    new_metrics = Hash.new
-    unless metrics.empty? or metrics['events'].nil?
+    new_metrics = {}
+    unless metrics.empty? || metrics['events'].nil?
       metrics.each do |metric, data|
         data.values.each do |val|
           new_metrics["puppet_report_#{metric}{name=\"#{val[1]}\",#{common_values.join(',')}}"] = val[2]
@@ -62,9 +62,7 @@ Puppet::Reports.register_report(:prometheus) do
         file.write("# Old metrics\n")
         existing_metrics = YAML.load_file(yaml_filename)
         existing_metrics.each do |k, _v|
-          unless new_metrics.include?(k)
-            file.write("#{k} -1\n")
-          end
+          file.write("#{k} -1\n") unless new_metrics.include?(k)
         end
       end
 
