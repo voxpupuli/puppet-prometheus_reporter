@@ -54,11 +54,11 @@ Puppet::Reports.register_report(:prometheus) do
       end
     end
 
-    epochtime = DateTime.now.new_offset(0).strftime('%Q')
+    epochtime = DateTime.now.new_offset(0).strftime('%Q')/1000.0
     new_metrics["puppet_report{#{common_values.join(',')}}"] = epochtime
 
     definitons = <<-EOS
-# HELP puppet_report Unix timestamp (in ms) of the last puppet run
+# HELP puppet_report Unix timestamp of the last puppet run
 # TYPE puppet_report gauge
 # HELP puppet_report_changes Changed resources in the last puppet run
 # TYPE puppet_report_changes gauge
