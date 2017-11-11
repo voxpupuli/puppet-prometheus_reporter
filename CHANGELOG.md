@@ -1,16 +1,28 @@
-# Change log
+# Changelog
 
 All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
-These should not impact the functionality of the module.
+These should not affect the functionality of the module.
+
+## [v0.2.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v0.2.0) (2017-11-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v0.1.0...v0.2.0)
+
+**Merged pull requests:**
+
+- Update metadata.json for supported puppet versions [\#16](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/16) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v0.1.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v0.1.0) (2017-04-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/5b2be9adcf5f2fc4f467d7b5605db8e95563dc26...v0.1.0)
+
 **Implemented enhancements:**
 
 - remove transaction\_uuid [\#5](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/5)
 
 **Merged pull requests:**
 
+- Release 0.1.0 [\#12](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/12) ([bastelfreak](https://github.com/bastelfreak))
 - Fix syntax [\#10](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/10) ([dhoppe](https://github.com/dhoppe))
 - Move to unique metrics names [\#7](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/7) ([roidelapluie](https://github.com/roidelapluie))
 - Add the prometheus reporter ruby script [\#4](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/4) ([roidelapluie](https://github.com/roidelapluie))
