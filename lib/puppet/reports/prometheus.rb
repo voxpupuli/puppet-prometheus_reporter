@@ -68,7 +68,7 @@ Puppet::Reports.register_report(:prometheus) do
 # HELP puppet_report_time Puppet ressource apply time broken down by their type
 # TYPE puppet_report_time gauge
 EOS
-  
+
     File.open(filename, 'w') do |file|
       file.write(definitons)
       if File.exist?(yaml_filename)
