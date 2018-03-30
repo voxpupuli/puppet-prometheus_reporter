@@ -30,13 +30,13 @@ Puppet::Reports.register_report(:prometheus) do
 
   def process
     namevar = if REPORT_FILENAME.nil?
-                host
+                host + '.prom'
               else
                 REPORT_FILENAME
               end
 
     yaml_filename = File.join(TEXTFILE_DIRECTORY, '.' + namevar + '.yaml')
-    filename = File.join(TEXTFILE_DIRECTORY, namevar + '.prom')
+    filename = File.join(TEXTFILE_DIRECTORY, namevar)
 
     common_values = {
       environment: environment,
