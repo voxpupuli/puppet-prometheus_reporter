@@ -54,10 +54,23 @@ Puppet::Reports.register_report(:prometheus) do
       end
     end
 
-    epochtime = DateTime.now.new_offset(0).strftime('%Q')
+    epochtime = DateTime.now.new_offset(0).strftime('%Q').to_i / 1000.0
     new_metrics["puppet_report{#{common_values.join(',')}}"] = epochtime
+    definitons = <<-EOS
+# HELP puppet_report Unix timestamp of the last puppet run
+# TYPE puppet_report gauge
+# HELP puppet_report_changes Changed resources in the last puppet run
+# TYPE puppet_report_changes gauge
+# HELP puppet_report_events Puppet events TODO: explain better
+# TYPE puppet_report_events gauge
+# HELP puppet_report_resources Puppet ressources break down by their state
+# TYPE puppet_report_resources gauge
+# HELP puppet_report_time Puppet ressource apply time broken down by their type
+# TYPE puppet_report_time gauge
+EOS
 
     File.open(filename, 'w') do |file|
+      file.write(definitons)
       if File.exist?(yaml_filename)
         file.write("# Old metrics\n")
         existing_metrics = YAML.load_file(yaml_filename)
