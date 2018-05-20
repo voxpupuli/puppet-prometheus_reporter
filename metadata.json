@@ -31,7 +31,6 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
         "14.04",
         "16.04"
       ]
@@ -43,7 +42,5 @@
       "version_requirement": ">= 4.10.0 < 6.0.0"
     }
   ],
-  "dependencies": [
-
-  ]
+  "dependencies": []
 }
