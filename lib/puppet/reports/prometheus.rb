@@ -29,9 +29,7 @@ Puppet::Reports.register_report(:prometheus) do
     raise(Puppet::ParseError, "#{configfile}: report_filename does not ends with .prom")
   end
 
-  unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
-    abort
-  end
+  abort unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
 
   def process
     namevar = if REPORT_FILENAME.nil?
