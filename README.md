@@ -13,12 +13,17 @@ Collector][pnetc].
 ### Puppet setup
 
 Include this module in your path, and create a file named `prometheus.yaml` in
-your Puppet configuration directory.
+your Puppet configuration directory. Example:
 
 ```yaml
 ---
 textfile_directory: /var/lib/prometheus-dropzone
 ```
+
+Configuration options include:
+- `textfile_directory` - Location of the node_exporter `collector.textfile.directory` (Required)
+- `report_filename` - If specified, saves all reports to a single file (must end with .prom)
+- `environments` - If specified, only creates metrics on reports from these environments
 
 Include `prometheus` in your Puppet reports configuration; enable pluginsync:
 
@@ -42,11 +47,13 @@ reports = puppetdb,prometheus
 ### Prometheus
 
 Call the Prometheus node_exporter with the `-collector.textfile.directory`
-flag:
+flag.
 
 ```
-node_exporter -collector.textfile.directory=/var/lib/prometheus-dropzone
+node_exporter --collector.textfile.directory=/var/lib/prometheus-dropzone
 ```
+
+Note: The directory can be anywhere, but must be matched to the one set in `prometheus.yml` above.
 
 ### Sample
 
@@ -116,4 +123,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
