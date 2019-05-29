@@ -48,28 +48,28 @@ Puppet::Reports.register_report(:prometheus) do
       values + Array("#{extra[0]}=\"#{extra[1]}\"")
     end
 
-    definitions = ""
+    definitions = ''
     new_metrics = {}
     unless metrics.empty? || metrics['events'].nil?
       metrics.each do |metric, data|
         next unless REPORTS.nil? || REPORTS.include?(metric)
         case metric
-        when "changes"
+        when 'changes'
           definitions << <<-EOS
 # HELP puppet_report_changes Changed resources in the last puppet run
 # TYPE puppet_report_changes gauge
 EOS
-        when "events"
+        when 'events'
           definitions << <<-EOS
 # HELP puppet_report_events Resource application events
 # TYPE puppet_report_events gauge
 EOS
-        when "resources"
+        when 'resources'
           definitions << <<-EOS
 # HELP puppet_report_resources Resources broken down by their state
 # TYPE puppet_report_resources gauge
 EOS
-        when "time"
+        when 'time'
           definitions << <<-EOS
 # HELP puppet_report_time Resource apply times
 # TYPE puppet_report_time gauge
