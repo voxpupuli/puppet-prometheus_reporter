@@ -61,17 +61,17 @@ Puppet::Reports.register_report(:prometheus) do
 EOS
         when "events"
           definitions << <<-EOS
-# HELP puppet_report_events Puppet events TODO: explain better
+# HELP puppet_report_events Resource application events
 # TYPE puppet_report_events gauge
 EOS
         when "resources"
           definitions << <<-EOS
-# HELP puppet_report_resources Puppet ressources break down by their state
+# HELP puppet_report_resources Resources broken down by their state
 # TYPE puppet_report_resources gauge
 EOS
         when "time"
           definitions << <<-EOS
-# HELP puppet_report_time Puppet ressource apply time broken down by their type
+# HELP puppet_report_time Resource apply times
 # TYPE puppet_report_time gauge
 EOS
         end

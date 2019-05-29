@@ -24,7 +24,7 @@ Configuration options include:
 - `textfile_directory` - [String] Location of the node_exporter `collector.textfile.directory` (Required)
 - `report_filename` - [String] If specified, saves all reports to a single file (must end with .prom)
 - `environments` - [Array] If specified, only creates metrics on reports from these environments
-- `reports` - [Array] If specified, only creates metrics in reports of this type (changes, events, resources, time)
+- `reports` - [Array] If specified, only creates metrics from reports of this type (changes, events, resources, time)
 
 Include `prometheus` in your Puppet reports configuration; enable pluginsync:
 
@@ -47,7 +47,7 @@ reports = puppetdb,prometheus
 
 ### Prometheus
 
-Call the Prometheus node_exporter with the `-collector.textfile.directory`
+Call the Prometheus node_exporter with the `--collector.textfile.directory`
 flag.
 
 ```
