@@ -20,6 +20,7 @@ Puppet::Reports.register_report(:prometheus) do
   TEXTFILE_DIRECTORY = config['textfile_directory']
   REPORT_FILENAME = config['report_filename']
   ENVIRONMENTS = config['environments']
+  REPORTS = config['reports']
 
   if TEXTFILE_DIRECTORY.nil?
     raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set.")
@@ -29,9 +30,8 @@ Puppet::Reports.register_report(:prometheus) do
     raise(Puppet::ParseError, "#{configfile}: report_filename does not ends with .prom")
   end
 
-  abort unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
-
   def process
+    Process.exit(0) unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
     namevar = if REPORT_FILENAME.nil?
                 host + '.prom'
               else
@@ -48,9 +48,33 @@ Puppet::Reports.register_report(:prometheus) do
       values + Array("#{extra[0]}=\"#{extra[1]}\"")
     end
 
+    definitions = ''
     new_metrics = {}
     unless metrics.empty? || metrics['events'].nil?
       metrics.each do |metric, data|
+        next unless REPORTS.nil? || REPORTS.include?(metric)
+        case metric
+        when 'changes'
+          definitions << <<-EOS
+# HELP puppet_report_changes Changed resources in the last puppet run
+# TYPE puppet_report_changes gauge
+EOS
+        when 'events'
+          definitions << <<-EOS
+# HELP puppet_report_events Resource application events
+# TYPE puppet_report_events gauge
+EOS
+        when 'resources'
+          definitions << <<-EOS
+# HELP puppet_report_resources Resources broken down by their state
+# TYPE puppet_report_resources gauge
+EOS
+        when 'time'
+          definitions << <<-EOS
+# HELP puppet_report_time Resource apply times
+# TYPE puppet_report_time gauge
+EOS
+        end
         data.values.each do |val|
           new_metrics["puppet_report_#{metric}{name=\"#{val[1]}\",#{common_values.join(',')}}"] = val[2]
         end
@@ -59,21 +83,13 @@ Puppet::Reports.register_report(:prometheus) do
 
     epochtime = DateTime.now.new_offset(0).strftime('%Q').to_i / 1000.0
     new_metrics["puppet_report{#{common_values.join(',')}}"] = epochtime
-    definitons = <<-EOS
+    definitions << <<-EOS
 # HELP puppet_report Unix timestamp of the last puppet run
 # TYPE puppet_report gauge
-# HELP puppet_report_changes Changed resources in the last puppet run
-# TYPE puppet_report_changes gauge
-# HELP puppet_report_events Puppet events TODO: explain better
-# TYPE puppet_report_events gauge
-# HELP puppet_report_resources Puppet ressources break down by their state
-# TYPE puppet_report_resources gauge
-# HELP puppet_report_time Puppet ressource apply time broken down by their type
-# TYPE puppet_report_time gauge
 EOS
 
     File.open(filename, 'w') do |file|
-      file.write(definitons)
+      file.write(definitions)
       if File.exist?(yaml_filename)
         file.write("# Old metrics\n")
         existing_metrics = YAML.load_file(yaml_filename)
