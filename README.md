@@ -25,6 +25,7 @@ Configuration options include:
 - `report_filename` - [String] If specified, saves all reports to a single file (must end with .prom)
 - `environments` - [Array] If specified, only creates metrics on reports from these environments
 - `reports` - [Array] If specified, only creates metrics from reports of this type (changes, events, resources, time)
+- `stale_time` - [Integer] If specified, delete metric files for nodes that haven't sent reports in X days
 
 Include `prometheus` in your Puppet reports configuration; enable pluginsync:
 

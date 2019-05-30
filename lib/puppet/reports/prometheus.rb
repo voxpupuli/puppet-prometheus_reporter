@@ -21,9 +21,10 @@ Puppet::Reports.register_report(:prometheus) do
   REPORT_FILENAME = config['report_filename']
   ENVIRONMENTS = config['environments']
   REPORTS = config['reports']
+  STALE_TIME = config['stale_time']
 
-  if TEXTFILE_DIRECTORY.nil?
-    raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set.")
+  if TEXTFILE_DIRECTORY.nil? || !File.exist?(TEXTFILE_DIRECTORY)
+    raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set or is missing.")
   end
 
   unless REPORT_FILENAME.nil? || REPORT_FILENAME.end_with?('.prom')
@@ -31,7 +32,7 @@ Puppet::Reports.register_report(:prometheus) do
   end
 
   def process
-    Process.exit(0) unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
+    return unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
     namevar = if REPORT_FILENAME.nil?
                 host + '.prom'
               else
@@ -107,5 +108,10 @@ EOS
     File.open(yaml_filename, 'w') do |yaml_file|
       yaml_file.write new_metrics.to_yaml
     end
+  end
+
+  unless STALE_TIME.nil? || STALE_TIME < 1
+    Dir.chdir(TEXTFILE_DIRECTORY)
+    Dir.glob('*.prom').each { |filename| File.delete(filename) if (Time.now - File.mtime(filename)) / (24 * 3600) > STALE_TIME }
   end
 end
