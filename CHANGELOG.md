@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.0.0) (2019-06-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v0.3.1...v1.0.0)
+
+**Breaking changes:**
+
+- modulesync 2.7.0 and drop puppet 4 [\#39](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/39) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Remove metric files for nodes that haven't sent reports in X time [\#44](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/44) ([LDaneliukas](https://github.com/LDaneliukas))
+
+**Closed issues:**
+
+- Configurable metric types  [\#42](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/42)
+- Configurable environments [\#40](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/40)
+- Removing deactivated node [\#38](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/38)
+
+**Merged pull requests:**
+
+- Allow selecting reports which are used for metrics [\#43](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/43) ([LDaneliukas](https://github.com/LDaneliukas))
+- Allow configurable environments [\#41](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/41) ([LDaneliukas](https://github.com/LDaneliukas))
+
 ## [v0.3.1](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v0.3.1) (2018-10-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v0.3.0...v0.3.1)
