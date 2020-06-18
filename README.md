@@ -92,6 +92,7 @@ puppet_report_events{name="Failure",environment="production",host="node.example.
 puppet_report_events{name="Success",environment="production",host="node.example.com"} 0
 puppet_report_events{name="Total",environment="production",host="node.example.com"} 0
 puppet_report{environment="production",host="node.example.com"} 1477054915347
+puppet_transaction_completed{environment="production",host="node.example.com"} 1
 ```
 
 ## Contributors
