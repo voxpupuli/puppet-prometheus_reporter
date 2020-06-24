@@ -89,6 +89,15 @@ EOS
 # TYPE puppet_report gauge
 EOS
 
+    if defined?(transaction_completed) && ([true, false].include? transaction_completed)
+      completed = transaction_completed == true ? 1 : 0
+      new_metrics["puppet_transaction_completed{#{common_values.join(',')}}"] = completed
+      definitions << <<-EOS
+# HELP puppet_transaction_completed transaction completed status of the last puppet run
+# TYPE puppet_transaction_completed gauge
+EOS
+    end
+
     File.open(filename, 'w') do |file|
       file.write(definitions)
       if File.exist?(yaml_filename)
