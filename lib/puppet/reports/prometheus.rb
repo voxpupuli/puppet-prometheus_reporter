@@ -98,6 +98,22 @@ EOS
 EOS
     end
 
+    if defined?(cached_catalog_status) && (['not_used', 'explicitly_requested', 'on_failure'].include? cached_catalog_status)
+      case cached_catalog_status
+      when 'not_used'
+        cached_catalog_status_value = 0
+      when 'explicitly_requested'
+        cached_catalog_status_value = 1
+      when 'on_failure'
+        cached_catalog_status_value = 2
+      end
+      new_metrics["puppet_cache_catalog_status{#{common_values.join(',')}}"] = cached_catalog_status_value
+      definitions << <<-EOS
+# HELP puppet_cache_catalog_status whether a cached catalog was used in the run, and if so, the reason that it was used (0 - not used, 1 - explicitly requested, 2 - on failure).
+# TYPE puppet_cache_catalog_status gauge
+EOS
+    end
+
     File.open(filename, 'w') do |file|
       file.write(definitions)
       if File.exist?(yaml_filename)
