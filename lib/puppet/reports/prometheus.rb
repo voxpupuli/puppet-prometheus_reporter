@@ -98,18 +98,21 @@ EOS
 EOS
     end
 
-    if defined?(cached_catalog_status) && (['not_used', 'explicitly_requested', 'on_failure'].include? cached_catalog_status)
+    cached_catalog_state = [0, 0, 0]
+    if defined?(cached_catalog_status) && (%w[not_used explicitly_requested on_failure].include? cached_catalog_status)
       case cached_catalog_status
       when 'not_used'
-        cached_catalog_status_value = 0
+        cached_catalog_state[0] = 1
       when 'explicitly_requested'
-        cached_catalog_status_value = 1
+        cached_catalog_state[1] = 1
       when 'on_failure'
-        cached_catalog_status_value = 2
+        cached_catalog_state[2] = 1
       end
-      new_metrics["puppet_cache_catalog_status{#{common_values.join(',')}}"] = cached_catalog_status_value
+      new_metrics["puppet_cache_catalog_status{state=\"not_used\",#{common_values.join(',')}}"] = cached_catalog_state[0]
+      new_metrics["puppet_cache_catalog_status{state=\"explicitly_requested\",#{common_values.join(',')}}"] = cached_catalog_state[1]
+      new_metrics["puppet_cache_catalog_status{state=\"on_failure\",#{common_values.join(',')}}"] = cached_catalog_state[2]
       definitions << <<-EOS
-# HELP puppet_cache_catalog_status whether a cached catalog was used in the run, and if so, the reason that it was used (0 - not used, 1 - explicitly requested, 2 - on failure).
+# HELP puppet_cache_catalog_status whether a cached catalog was used in the run, and if so, the reason that it was used
 # TYPE puppet_cache_catalog_status gauge
 EOS
     end
