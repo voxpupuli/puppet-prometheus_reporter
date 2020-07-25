@@ -93,6 +93,12 @@ puppet_report_events{name="Success",environment="production",host="node.example.
 puppet_report_events{name="Total",environment="production",host="node.example.com"} 0
 puppet_report{environment="production",host="node.example.com"} 1477054915347
 puppet_transaction_completed{environment="production",host="node.example.com"} 1
+puppet_cache_catalog_status{state="not_used",environment="production",host="node.example.com"} 0
+puppet_cache_catalog_status{state="explicitly_requested",environment="production",host="node.example.com"} 1
+puppet_cache_catalog_status{state="on_failure",environment="production",host="node.example.com"} 0
+puppet_status{state="failed",environment="production",host="node.example.com"} 0
+puppet_status{state="changed",environment="production",host="node.example.com"} 0
+puppet_status{state="unchanged",environment="production",host="node.example.com"} 1
 ```
 
 ## Contributors

@@ -98,6 +98,45 @@ EOS
 EOS
     end
 
+    cached_catalog_state = [0, 0, 0]
+    if defined?(cached_catalog_status) && (%w[not_used explicitly_requested on_failure].include? cached_catalog_status)
+      case cached_catalog_status
+      when 'not_used'
+        cached_catalog_state[0] = 1
+      when 'explicitly_requested'
+        cached_catalog_state[1] = 1
+      when 'on_failure'
+        cached_catalog_state[2] = 1
+      end
+      new_metrics["puppet_cache_catalog_status{state=\"not_used\",#{common_values.join(',')}}"] = cached_catalog_state[0]
+      new_metrics["puppet_cache_catalog_status{state=\"explicitly_requested\",#{common_values.join(',')}}"] = cached_catalog_state[1]
+      new_metrics["puppet_cache_catalog_status{state=\"on_failure\",#{common_values.join(',')}}"] = cached_catalog_state[2]
+      definitions << <<-EOS
+# HELP puppet_cache_catalog_status whether a cached catalog was used in the run, and if so, the reason that it was used
+# TYPE puppet_cache_catalog_status gauge
+EOS
+    end
+
+    # Set initial status
+    status_state = [0, 0, 0]
+    if defined?(status) && (%w[failed changed unchanged].include? status)
+      case status
+      when 'failed'
+        status_state[0] = 1
+      when 'changed'
+        status_state[1] = 1
+      when 'unchanged'
+        status_state[2] = 1
+      end
+      new_metrics["puppet_status{state=\"failed\",#{common_values.join(',')}}"] = status_state[0]
+      new_metrics["puppet_status{state=\"changed\",#{common_values.join(',')}}"] = status_state[1]
+      new_metrics["puppet_status{state=\"unchanged\",#{common_values.join(',')}}"] = status_state[2]
+      definitions << <<-EOS
+# HELP puppet_status the status of the client run
+# TYPE puppet_status gauge
+EOS
+    end
+
     File.open(filename, 'w') do |file|
       file.write(definitions)
       if File.exist?(yaml_filename)
