@@ -156,9 +156,12 @@ EOS
     File.open(yaml_filename, 'w') do |yaml_file|
       yaml_file.write new_metrics.to_yaml
     end
+
+    clean_stale_reports
   end
 
-  unless STALE_TIME.nil? || STALE_TIME < 1
+  def clean_stale_reports
+    return if STALE_TIME.nil? || STALE_TIME < 1
     Dir.chdir(TEXTFILE_DIRECTORY)
     Dir.glob('*.prom').each { |filename| File.delete(filename) if (Time.now - File.mtime(filename)) / (24 * 3600) > STALE_TIME }
   end
