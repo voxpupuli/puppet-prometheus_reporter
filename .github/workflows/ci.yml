@@ -6,12 +6,13 @@ jobs:
   setup_matrix:
     name: 'Setup Test Matrix'
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     outputs:
       beaker_setfiles: ${{ steps.get-outputs.outputs.beaker_setfiles }}
       puppet_major_versions: ${{ steps.get-outputs.outputs.puppet_major_versions }}
       puppet_unit_test_matrix: ${{ steps.get-outputs.outputs.puppet_unit_test_matrix }}
     env:
-      BUNDLE_WITHOUT: development:test:release
+      BUNDLE_WITHOUT: development:release
     steps:
       - uses: actions/checkout@v2
       - name: Setup ruby
@@ -21,6 +22,8 @@ jobs:
           bundler-cache: true
       - name: Run rake validate
         run: bundle exec rake validate
+      - name: Run rake rubocop
+        run: bundle exec rake rubocop
       - name: Setup Test Matrix
         id: get-outputs
         run: bundle exec metadata2gha --use-fqdn --pidfile-workaround false
@@ -28,6 +31,7 @@ jobs:
   unit:
     needs: setup_matrix
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
