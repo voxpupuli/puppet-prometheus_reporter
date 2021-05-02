@@ -1,6 +1,6 @@
 {
   "name": "puppet-prometheus_reporter",
-  "version": "1.1.0",
+  "version": "1.1.1-rc0",
   "author": "Vox Pupuli",
   "summary": "This module writes Puppet reports in a format suitable for prometheus node_exporter textfile collector",
   "license": "Apache-2.0",
