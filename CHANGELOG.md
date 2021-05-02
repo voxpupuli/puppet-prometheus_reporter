@@ -4,7 +4,32 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.0.0) (2019-06-05)
+## [v1.1.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.1.0) (2021-05-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v1.0.0...v1.1.0)
+
+**Breaking changes:**
+
+- drop Ubuntu 14.04 support [\#48](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/48) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- List Puppet 7 support [\#62](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/62) ([bastelfreak](https://github.com/bastelfreak))
+- Add cache\_catalog\_status and puppet\_status metrics [\#57](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/57) ([matejzero](https://github.com/matejzero))
+
+**Closed issues:**
+
+- Question about how to properly use this [\#56](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/56)
+- config stale\_time doesn't work [\#53](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/53)
+- Does this reporter support the newest node version? [\#9](https://github.com/voxpupuli/puppet-prometheus_reporter/issues/9)
+
+**Merged pull requests:**
+
+- modulesync 4.1.0 / Drop Puppet 5 from metadata.json [\#63](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/63) ([bastelfreak](https://github.com/bastelfreak))
+- Fix issue \#53 config stale\_time doesn't work [\#55](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/55) ([zipkid](https://github.com/zipkid))
+- Feature/report puppet transaction completed [\#54](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/54) ([zipkid](https://github.com/zipkid))
+
+## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.0.0) (2019-07-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v0.3.1...v1.0.0)
 
