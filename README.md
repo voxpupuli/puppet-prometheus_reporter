@@ -4,7 +4,7 @@ This module contains a Puppet [reports processor][rpc] that writes report
 metrics in a format that is accepted by [Prometheus node_exporter Textfile
 Collector][pnetc].
 
-[rpc]:https://docs.puppet.com/puppet/latest/reference/reporting_about.html
+[rpc]:https://puppet.com/docs/puppet/latest/reporting_about.html
 [pnetc]:https://github.com/prometheus/node_exporter#textfile-collector
 
 
