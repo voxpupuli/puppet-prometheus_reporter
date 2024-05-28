@@ -22,7 +22,8 @@ textfile_directory: /var/lib/prometheus-dropzone
 
 Configuration options include:
 - `textfile_directory` - [String] Location of the node_exporter `collector.textfile.directory` (Required)
-- `report_filename` - [String] If specified, saves all reports to a single file (must end with .prom)
+- `report_file_prefix` - [String] Prefix for metrics files. Default: `puppet_report_`
+- `report_file_mode` - File mode to set on report files. Default: 0644
 - `environments` - [Array] If specified, only creates metrics on reports from these environments
 - `reports` - [Array] If specified, only creates metrics from reports of this type (changes, events, resources, time)
 - `stale_time` - [Integer] If specified, delete metric files for nodes that haven't sent reports in X days
