@@ -16,26 +16,16 @@ Puppet::Reports.register_report(:prometheus) do
   config = YAML.load_file(configfile)
 
   TEXTFILE_DIRECTORY = config['textfile_directory']
-  REPORT_FILENAME = config['report_filename']
+  REPORT_FILE_PREFIX = config.fetch('report_file_prefix', 'puppet_report_')
+  REPORT_FILE_MODE = config.fetch('report_file_mode', 0o644)
   ENVIRONMENTS = config['environments']
   REPORTS = config['reports']
   STALE_TIME = config['stale_time']
 
   raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set or is missing.") if TEXTFILE_DIRECTORY.nil? || !File.exist?(TEXTFILE_DIRECTORY)
 
-  raise(Puppet::ParseError, "#{configfile}: report_filename does not ends with .prom") unless REPORT_FILENAME.nil? || REPORT_FILENAME.end_with?('.prom')
-
   def process
     return unless ENVIRONMENTS.nil? || ENVIRONMENTS.include?(environment)
-
-    namevar = if REPORT_FILENAME.nil?
-                host + '.prom'
-              else
-                REPORT_FILENAME
-              end
-
-    yaml_filename = File.join(TEXTFILE_DIRECTORY, '.' + namevar + '.yaml')
-    filename = File.join(TEXTFILE_DIRECTORY, namevar)
 
     common_values = {
       environment: environment,
@@ -133,23 +123,16 @@ Puppet::Reports.register_report(:prometheus) do
       EOS
     end
 
+    filename = File.join(TEXTFILE_DIRECTORY, "#{REPORT_FILE_PREFIX}#{host}.prom")
+
     File.open(filename, 'w') do |file|
       file.write(definitions)
-      if File.exist?(yaml_filename)
-        file.write("# Old metrics\n")
-        existing_metrics = YAML.load_file(yaml_filename)
-        existing_metrics.each do |k, _v|
-          file.write("#{k} -1\n") unless new_metrics.include?(k)
-        end
-      end
-
-      file.write("# New metrics\n")
       new_metrics.each do |k, v|
         file.write("#{k} #{v}\n")
       end
     end
 
-    File.write(yaml_filename, new_metrics.to_yaml)
+    File.chmod(REPORT_FILE_MODE, filename)
 
     clean_stale_reports
   end
@@ -158,6 +141,6 @@ Puppet::Reports.register_report(:prometheus) do
     return if STALE_TIME.nil? || STALE_TIME < 1
 
     Dir.chdir(TEXTFILE_DIRECTORY)
-    Dir.glob('*.prom').each { |filename| File.delete(filename) if (Time.now - File.mtime(filename)) / (24 * 3600) > STALE_TIME }
+    Dir.glob("#{REPORT_FILE_PREFIX}*.prom").each { |filename| File.delete(filename) if (Time.now - File.mtime(filename)) / (24 * 3600) > STALE_TIME }
   end
 end
