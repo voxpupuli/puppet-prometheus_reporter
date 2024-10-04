@@ -30,7 +30,9 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "16.04"
+        "16.04",
+        "20.04",
+        "22.04"
       ]
     }
   ],
