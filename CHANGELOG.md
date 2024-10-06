@@ -4,13 +4,31 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v1.1.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.1.0) (2021-05-02)
+## [v2.0.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v2.0.0) (2024-10-06)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v1.0.0...v1.1.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v1.1.0...v2.0.0)
 
 **Breaking changes:**
 
-- drop Ubuntu 14.04 support [\#48](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/48) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Puppet 6 support [\#71](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/71) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- feat: add test [\#91](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/91) ([TheMeier](https://github.com/TheMeier))
+- Add Puppet 8 support [\#72](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/72) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Report files and permissions improvements [\#77](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/77) ([saz](https://github.com/saz))
+
+**Merged pull requests:**
+
+- remove supported operating systems from metadata [\#92](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/92) ([TheMeier](https://github.com/TheMeier))
+- fix link to docs [\#65](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/65) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
+## [v1.1.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.1.0) (2021-05-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus_reporter/compare/v1.0.0...v1.1.0)
 
 **Implemented enhancements:**
 
@@ -28,6 +46,7 @@ These should not affect the functionality of the module.
 - modulesync 4.1.0 / Drop Puppet 5 from metadata.json [\#63](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/63) ([bastelfreak](https://github.com/bastelfreak))
 - Fix issue \#53 config stale\_time doesn't work [\#55](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/55) ([zipkid](https://github.com/zipkid))
 - Feature/report puppet transaction completed [\#54](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/54) ([zipkid](https://github.com/zipkid))
+- drop Ubuntu 14.04 support [\#48](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/48) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v1.0.0) (2019-07-27)
 
@@ -39,7 +58,7 @@ These should not affect the functionality of the module.
 
 **Implemented enhancements:**
 
-- Remove metric files for nodes that haven't sent reports in X time [\#44](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/44) ([LDaneliukas](https://github.com/LDaneliukas))
+- Remove metric files for nodes that haven't sent reports in X time [\#44](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/44) ([ldaneliukas](https://github.com/ldaneliukas))
 
 **Closed issues:**
 
@@ -49,8 +68,8 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Allow selecting reports which are used for metrics [\#43](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/43) ([LDaneliukas](https://github.com/LDaneliukas))
-- Allow configurable environments [\#41](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/41) ([LDaneliukas](https://github.com/LDaneliukas))
+- Allow selecting reports which are used for metrics [\#43](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/43) ([ldaneliukas](https://github.com/ldaneliukas))
+- Allow configurable environments [\#41](https://github.com/voxpupuli/puppet-prometheus_reporter/pull/41) ([ldaneliukas](https://github.com/ldaneliukas))
 
 ## [v0.3.1](https://github.com/voxpupuli/puppet-prometheus_reporter/tree/v0.3.1) (2018-10-14)
 
