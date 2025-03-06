@@ -56,7 +56,7 @@ flag.
 node_exporter --collector.textfile.directory=/var/lib/prometheus-dropzone
 ```
 
-Note: The directory can be anywhere, but must be matched to the one set in `prometheus.yml` above.
+Note: The directory can be anywhere, but must be matched to the one set in `prometheus.yaml` above.
 
 ### Sample
 
