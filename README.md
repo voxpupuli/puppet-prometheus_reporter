@@ -28,17 +28,15 @@ Configuration options include:
 - `reports` - [Array] If specified, only creates metrics from reports of this type (changes, events, resources, time)
 - `stale_time` - [Integer] If specified, delete metric files for nodes that haven't sent reports in X days
 
-Include `prometheus` in your Puppet reports configuration; enable pluginsync:
+Include `prometheus` in your Puppet reports configuration:
 
 ```ini
 [agent]
 report = true
-pluginsync = true
 
 [master]
 report = true
 reports = prometheus
-pluginsync = true
 ```
 
 Note: you can use a comma separated list of reports processors:
