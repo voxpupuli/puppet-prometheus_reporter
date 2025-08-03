@@ -9,8 +9,8 @@
   "issues_url": "https://github.com/voxpupuli/puppet-prometheus_reporter/issues",
   "requirements": [
     {
-      "name": "puppet",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
+      "name": "openvox",
+      "version_requirement": ">= 8.19.0 < 9.0.0"
     }
   ],
   "dependencies": []
