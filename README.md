@@ -27,6 +27,7 @@ Configuration options include:
 - `environments` - [Array] If specified, only creates metrics on reports from these environments
 - `reports` - [Array] If specified, only creates metrics from reports of this type (changes, events, resources, time)
 - `stale_time` - [Integer] If specified, delete metric files for nodes that haven't sent reports in X days
+- `include_config_version` - [Boolean] If set to false, disables reporting of configuration version. Default: true
 
 Include `prometheus` in your Puppet reports configuration:
 
@@ -98,6 +99,7 @@ puppet_cache_catalog_status{state="on_failure",environment="production",host="no
 puppet_status{state="failed",environment="production",host="node.example.com"} 0
 puppet_status{state="changed",environment="production",host="node.example.com"} 0
 puppet_status{state="unchanged",environment="production",host="node.example.com"} 1
+puppet_configuration_version{version="f12a7b9",environment="production",host="node.example.com"} 1
 ```
 
 ## Contributors
