@@ -18,7 +18,8 @@ describe 'Puppet::Reports::Prometheus' do
         'report_file_mode' => 0o644,
         'environments' => nil,
         'reports' => nil,
-        'stale_time' => 1
+        'stale_time' => 1,
+        'include_config_version' => true
       }
     )
 
@@ -41,6 +42,7 @@ describe 'Puppet::Reports::Prometheus' do
     allow(report).to receive(:status).and_return('changed')
     allow(report).to receive(:transaction_completed).and_return(true)
     allow(report).to receive(:cached_catalog_status).and_return('not_used')
+    allow(report).to receive(:configuration_version).and_return('release/puppet8@main v2.1.0')
 
     file_content = ''
     file_double = instance_double(File)
@@ -52,6 +54,9 @@ describe 'Puppet::Reports::Prometheus' do
 
     expect(file_content).to include(%(puppet_report{environment="production",host="test_host"}))
     expect(file_content).to include(%(puppet_status{state="unchanged",environment="production",host="test_host"} 0))
+    expect(file_content).to include('# HELP puppet_configuration_version Puppet catalog configuration version')
+    expect(file_content).to include('# TYPE puppet_configuration_version gauge')
+    expect(file_content).to include(%(puppet_configuration_version{version="release/puppet8_main_v2.1.0",environment="production",host="test_host"} 1))
   end
 end
 # rubocop:enable Style/FrozenStringLiteralComment

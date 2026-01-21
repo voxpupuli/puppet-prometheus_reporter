@@ -21,6 +21,7 @@ Puppet::Reports.register_report(:prometheus) do
   ENVIRONMENTS = config['environments']
   REPORTS = config['reports']
   STALE_TIME = config['stale_time']
+  INCLUDE_CONFIG_VERSION = config.fetch('include_config_version', true)
 
   raise(Puppet::ParseError, "#{configfile}: textfile_directory is not set or is missing.") if TEXTFILE_DIRECTORY.nil? || !File.exist?(TEXTFILE_DIRECTORY)
 
@@ -120,6 +121,15 @@ Puppet::Reports.register_report(:prometheus) do
       definitions << <<~EOS
         # HELP puppet_status the status of the client run
         # TYPE puppet_status gauge
+      EOS
+    end
+
+    if INCLUDE_CONFIG_VERSION && defined?(configuration_version) && configuration_version
+      sanitized_ver = configuration_version.to_s.strip.gsub(%r{[^A-Za-z0-9_.:/+-]}, '_')
+      new_metrics["puppet_configuration_version{version=\"#{sanitized_ver}\",#{common_values.join(',')}}"] = 1
+      definitions << <<~EOS
+        # HELP puppet_configuration_version Puppet catalog configuration version
+        # TYPE puppet_configuration_version gauge
       EOS
     end
 
