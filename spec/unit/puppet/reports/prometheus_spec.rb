@@ -18,8 +18,8 @@ describe 'Puppet::Reports::Prometheus' do
         'report_file_mode' => 0o644,
         'environments' => nil,
         'reports' => nil,
-        'stale_time' => 1
-      }
+        'stale_time' => 1,
+      },
     )
 
     # Now require the report file AFTER mocking
