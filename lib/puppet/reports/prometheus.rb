@@ -10,7 +10,7 @@ Puppet::Reports.register_report(:prometheus) do
   # Source: evenup/evenup-graphite_reporter code base
   # lib/puppet/reports/graphite.rb
   configfile = File.join([File.dirname(Puppet.settings[:config]),
-                          'prometheus.yaml'])
+                          'prometheus.yaml',])
   raise(Puppet::ParseError, "Prometheus report config file #{configfile} not readable") unless File.exist?(configfile)
 
   config = YAML.load_file(configfile)
@@ -29,7 +29,7 @@ Puppet::Reports.register_report(:prometheus) do
 
     common_values = {
       environment: environment,
-      host: host
+      host: host,
     }.reduce([]) do |values, extra|
       values + Array("#{extra[0]}=\"#{extra[1]}\"")
     end
@@ -76,7 +76,7 @@ Puppet::Reports.register_report(:prometheus) do
     EOS
 
     if defined?(transaction_completed) && ([true, false].include? transaction_completed)
-      completed = transaction_completed == true ? 1 : 0
+      completed = (transaction_completed == true) ? 1 : 0
       new_metrics["puppet_transaction_completed{#{common_values.join(',')}}"] = completed
       definitions << <<~EOS
         # HELP puppet_transaction_completed transaction completed status of the last puppet run
