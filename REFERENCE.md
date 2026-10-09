@@ -4,3 +4,94 @@
 
 ## Table of Contents
 
+### Classes
+
+* [`prometheus_reporter`](#prometheus_reporter): Class to configure the prometheus reporter
+
+### Data types
+
+* [`Prometheus_reporter::Report`](#Prometheus_reporter--Report): Type representing the different report types that can be collected
+
+## Classes
+
+### <a name="prometheus_reporter"></a>`prometheus_reporter`
+
+Class to configure the prometheus reporter
+
+#### Parameters
+
+The following parameters are available in the `prometheus_reporter` class:
+
+* [`textfile_directory`](#-prometheus_reporter--textfile_directory)
+* [`config_directory`](#-prometheus_reporter--config_directory)
+* [`report_file_prefix`](#-prometheus_reporter--report_file_prefix)
+* [`report_file_mode`](#-prometheus_reporter--report_file_mode)
+* [`environments`](#-prometheus_reporter--environments)
+* [`reports`](#-prometheus_reporter--reports)
+* [`stale_time`](#-prometheus_reporter--stale_time)
+
+##### <a name="-prometheus_reporter--textfile_directory"></a>`textfile_directory`
+
+Data type: `Stdlib::Absolutepath`
+
+Location of the node_exporter collector.textfile.directory (Required)
+
+Default value: `'/var/lib/prometheus/node-exporter'`
+
+##### <a name="-prometheus_reporter--config_directory"></a>`config_directory`
+
+Data type: `Stdlib::Absolutepath`
+
+Directory to place the prometheus.yaml config file. The default value is the Puppet config directory of the
+compiling puppet server.  If your agents have a different directory you will need to override this value.
+
+Default value: `$settings::config.dirname`
+
+##### <a name="-prometheus_reporter--report_file_prefix"></a>`report_file_prefix`
+
+Data type: `String`
+
+Prefix for metrics files.
+
+Default value: `'puppet_report_'`
+
+##### <a name="-prometheus_reporter--report_file_mode"></a>`report_file_mode`
+
+Data type: `Stdlib::Filemode`
+
+File mode to set on report files.
+
+Default value: `'0644'`
+
+##### <a name="-prometheus_reporter--environments"></a>`environments`
+
+Data type: `Array[String[1]]`
+
+If specified, only creates metrics on reports from these environments
+
+Default value: `[]`
+
+##### <a name="-prometheus_reporter--reports"></a>`reports`
+
+Data type: `Array[Prometheus_reporter::Report]`
+
+If specified, only creates metrics from reports of this type (changes, events, resources, time)
+
+Default value: `[]`
+
+##### <a name="-prometheus_reporter--stale_time"></a>`stale_time`
+
+Data type: `Optional[Integer]`
+
+If specified, delete metric files for nodes that haven't sent reports in X days
+
+Default value: `undef`
+
+## Data types
+
+### <a name="Prometheus_reporter--Report"></a>`Prometheus_reporter::Report`
+
+Type representing the different report types that can be collected
+
+Alias of `Enum['changes', 'events', 'resources', 'time']`
+
